@@ -1,0 +1,5 @@
+python-dotenv
+requests
+pandas
+awswrangler==3.9.1
+redshift-connector==2.1.3
