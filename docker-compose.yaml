@@ -54,5 +54,16 @@ services:
       - ./dags/data:/opt/airflow/dags/data
     environment: *airflow_environment
     command: scheduler
+  # ====================================== STREAMLIT SERVICE ======================================
+  streamlit:
+    image: streamlit  # Imagen que creaste para Streamlit
+    restart: always
+    ports:
+      - "8501:8501"          # Exponiendo el puerto 8501
+    volumes:
+      - .:/app           # Montando el directorio donde está app.py
+    working_dir: /app        # Directorio de trabajo
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0  
+
 volumes:
   logs:
