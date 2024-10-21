@@ -6,3 +6,4 @@ dags/src/__pycache__/get_data.cpython-39.pyc
 dags/__pycache__/dags.cpython-39.pyc
 utils.ipynb
 polygon_data_dag.py
+.env

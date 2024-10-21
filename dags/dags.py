@@ -36,7 +36,7 @@ task1 = BashOperator(
 # Define Task 2 (insert the data into the database)
 task2 = BashOperator(
                      task_id='insert_data',
-                     bash_command=f'python {path}/dags/src/insert_data.py {path}/dags/data/nyse_data.csv',
+                     bash_command=f'python {path}/dags/src/insert_data.py {path}/dags/data/btcusd_data.csv',
                      dag=dag
                     )
 

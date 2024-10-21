@@ -28,7 +28,7 @@ url = 'https://api.polygon.io/v2/aggs/ticker/X:' + simbol + '/range/1/day/' + fe
 # Especificar el directorio donde se guardará el archivo CSV
 output_dir = os.path.join(os.environ['AIRFLOW_HOME'], 'dags', 'data')
 os.makedirs(output_dir, exist_ok=True)  # Crear el directorio si no existe
-output_file = os.path.join(output_dir, 'nyse_data.csv')
+output_file = os.path.join(output_dir, 'btcusd_data.csv')
 
 
 try:
@@ -39,6 +39,22 @@ try:
     
     # Crear un DataFrame desde la lista de resultados
     df = pd.DataFrame(results)
+    df = df.rename(columns={
+        'v': 'volumen',
+        'vw': 'vw_aprice',
+        'o': 'precio_apertura',
+        'c': 'precio_cierre',
+        'h': 'precio_maximo',
+        'l': 'precio_minimo',
+        't': 'timestamp',
+        'n': 'numero_transacciones'
+        })
+    
+    # Convertir la columna 'timestamp' a datetime
+    df['Fecha'] = pd.to_datetime(df['timestamp'], unit='ms')
+
+    # Opcional: eliminar la columna original de timestamp si ya no la necesitas
+    df = df.drop(columns=['timestamp'])
     print(df)
     
     # Guardar el DataFrame en el archivo CSV
