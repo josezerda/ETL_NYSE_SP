@@ -1,4 +1,5 @@
 build:
+	cp .env ./dags/src/.env
 	docker build . --tag extending_airflow:latest
 	docker build . --tag streamlit:latest -f Dockerfile.streamlit
 
