@@ -31,35 +31,41 @@ os.makedirs(output_dir, exist_ok=True)  # Crear el directorio si no existe
 output_file = os.path.join(output_dir, 'btcusd_data.csv')
 
 
-try:
-    response = requests.get(url)
-    response.raise_for_status()  # Esto lanzará un error si la respuesta no es exitosa
-    data = response.json()
-    results = data.get('results', [])
-    
-    # Crear un DataFrame desde la lista de resultados
-    df = pd.DataFrame(results)
-    df = df.rename(columns={
-        'v': 'volumen',
-        'vw': 'vw_aprice',
-        'o': 'precio_apertura',
-        'c': 'precio_cierre',
-        'h': 'precio_maximo',
-        'l': 'precio_minimo',
-        't': 'timestamp',
-        'n': 'numero_transacciones'
-        })
-    
-    # Convertir la columna 'timestamp' a datetime
-    df['Fecha'] = pd.to_datetime(df['timestamp'], unit='ms')
+def main():
+        
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Esto lanzará un error si la respuesta no es exitosa
+        data = response.json()
+        results = data.get('results', [])
+        
+        # Crear un DataFrame desde la lista de resultados
+        df = pd.DataFrame(results)
+        df = df.rename(columns={
+            'v': 'volumen',
+            'vw': 'vw_aprice',
+            'o': 'precio_apertura',
+            'c': 'precio_cierre',
+            'h': 'precio_maximo',
+            'l': 'precio_minimo',
+            't': 'timestamp',
+            'n': 'numero_transacciones'
+            })
+        
+        # Convertir la columna 'timestamp' a datetime
+        df['Fecha'] = pd.to_datetime(df['timestamp'], unit='ms')
 
-    # Opcional: eliminar la columna original de timestamp si ya no la necesitas
-    df = df.drop(columns=['timestamp'])
-    print(df)
-    
-    # Guardar el DataFrame en el archivo CSV
-    df.to_csv(output_file, index=False)
-    print(f"Datos de NYSE recolectados y guardados en '{output_file}'.")
-except requests.exceptions.RequestException as e:
-    print(f"Error en la solicitud: {e}")
-    sys.exit(1)
+        # Opcional: eliminar la columna original de timestamp si ya no la necesitas
+        df = df.drop(columns=['timestamp'])
+        print(df)
+        
+        # Guardar el DataFrame en el archivo CSV
+        df.to_csv(output_file, index=False)
+        print(f"Datos de NYSE recolectados y guardados en '{output_file}'.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error en la solicitud: {e}")
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
