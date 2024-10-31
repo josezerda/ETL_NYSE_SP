@@ -8,3 +8,4 @@ utils.ipynb
 polygon_data_dag.py
 .env
 dags/data/btcusd_data.csv
+dags/data/btcusd_data.csv
