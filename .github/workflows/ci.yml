@@ -37,6 +37,7 @@ jobs:
         echo "REDSHIFT_PORT=${{ secrets.REDSHIFT_PORT }}" >> $GITHUB_ENV
         echo "REDSHIFT_HOST=${{ secrets.REDSHIFT_HOST }}" >> $GITHUB_ENV
         echo "REDSHIFT_SCHEMA=${{ secrets.REDSHIFT_SCHEMA }}" >> $GITHUB_ENV
+        echo "AIRFLOW_HOME=${{ secrets.AIRFLOW_HOME }}" >> $GITHUB_ENV
 
     - name: Run tests
       run: |
