@@ -26,6 +26,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Set environment variables
+      run: |
+        echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+        echo "SIMBOL=${{ secrets.SIMBOL }}" >> $GITHUB_ENV
+        echo "REDSHIFT_DATABASE=${{ secrets.REDSHIFT_DATABASE }}" >> $GITHUB_ENV
+        echo "REDSHIFT_TABLE=${{ secrets.REDSHIFT_TABLE }}" >> $GITHUB_ENV
+        echo "REDSHIFT_USER=${{ secrets.REDSHIFT_USER }}" >> $GITHUB_ENV
+        echo "REDSHIFT_PASSWORD=${{ secrets.REDSHIFT_PASSWORD }}" >> $GITHUB_ENV
+        echo "REDSHIFT_PORT=${{ secrets.REDSHIFT_PORT }}" >> $GITHUB_ENV
+        echo "REDSHIFT_HOST=${{ secrets.REDSHIFT_HOST }}" >> $GITHUB_ENV
+        echo "REDSHIFT_SCHEMA=${{ secrets.REDSHIFT_SCHEMA }}" >> $GITHUB_ENV
+
     - name: Run tests
       run: |
         python -m unittest discover -s tests 
