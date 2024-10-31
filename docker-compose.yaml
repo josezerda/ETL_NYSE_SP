@@ -10,6 +10,7 @@ x-environment: &airflow_environment
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
   - AIRFLOW__WEBSERVER__RBAC=False
+  - AIRFLOW_HOME=/opt/airflow
 x-airflow-image: &airflow_image extending_airflow:latest
 # ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================
 services:
